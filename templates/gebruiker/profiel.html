@@ -2,14 +2,14 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}Maak een account aan{% endblock %}
+{% block title %}Profiel{% endblock %}
 
 {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="pt-3 pb-3">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Registreren" class="btn btn-success">
+        <input type="submit" value="Update" class="btn btn-primary">
     </div>
 </form>
 {% endblock %}
