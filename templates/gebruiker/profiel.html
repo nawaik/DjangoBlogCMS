@@ -1,15 +1,32 @@
 {% extends 'base.html' %}
 
-{% load crispy_forms_tags %}
-
-{% block title %}Profiel{% endblock %}
+{% block title %}{{ object.username }} | DjangoBlog {% endblock %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
-    <div class="pt-3 pb-3">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <input type="submit" value="Update" class="btn btn-primary">
-    </div>
-</form>
+<div class="pt-3 pb-3">
+    {% if object.profile_picture %}
+        <div class="row">
+            <div class="col-sm-3">
+                <img src="{{ object.profile_picture.url}}" class="rounded" style="max-width:100%;%">
+            </div>
+            <div class="col-sm-9">
+                <h3>{{ object.username|title }}</h3>
+                <ul>
+                    <li>{{ object.first_name|title }}</li>
+                    <li>{{ object.last_name|title }}</li>
+                    <li>Lid sinds {{ object.date_joined|date:"d M Y" }}</li>
+                    <li><a href="{% url 'profielartikels' object.pk %}">Bekijk alle artikels van {{ object.username }}</a></li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <h3>{{ object.username|title }}</h3>
+        <ul>
+            <li>Naam: {% if object.first_name %}{{ object.first_name|title }}{% else %}Onbekend{% endif %}</li>
+            <li>Achternaam: {% if object.last_name %}{{ object.last_name|title }}{% else %}Onbekend{% endif %}</li>
+            <li>Lid sinds {{ object.date_joined|date:"d M Y" }}</li>
+            <li><a href="{% url 'profielartikels' object.pk %}">Bekijk alle artikels van {{ object.username }}</a></li>
+        </ul>
+    {% endif %}
+</div>
 {% endblock %}

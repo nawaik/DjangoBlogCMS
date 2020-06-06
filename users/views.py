@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
 from django.contrib.auth.views import LoginView
 
 from .forms import MakeCustomUserForm, CustomAuthenticationForm, ProfileForm
@@ -18,10 +19,14 @@ class CustomLoginView(LoginView):
 class ProfileUpdateView(UpdateView):
     form_class = ProfileForm
     success_url = '/profiel/'
-    template_name = 'gebruiker/profiel.html'
+    template_name = 'gebruiker/profielupdaten.html'
 
     def get_queryset(self):
         return CustomUser.objects.get(username=self.request.user)
 
     def get_object(self):
         return get_object_or_404(CustomUser, pk=self.request.user.id)
+
+class ProfileDetailView(DetailView):
+    model = CustomUser
+    template_name = 'gebruiker/profiel.html'

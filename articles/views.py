@@ -24,6 +24,14 @@ class ShowOwnArticlesView(ListView):
     def get_queryset(self):
         return Articles.objects.filter(author=self.request.user)
 
+class ShowProfileArticlesView(ListView):
+    model = Articles
+    paginate_by = 40
+    template_name = 'artikelen/userarticle.html'
+
+    def get_queryset(self):
+        return Articles.objects.filter(author_id=self.kwargs['author_id'])
+
 class CreateArticleView(CreateView):
     form_class = CreateArticleForm
     template_name = 'artikelen/createarticle.html'

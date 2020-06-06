@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ShowArticlesView, CreateArticleView, DetailArticleView, ShowOwnArticlesView, UpdateArticleView, DeleteArticleView
+from .views import ShowArticlesView, CreateArticleView, DetailArticleView, ShowOwnArticlesView, UpdateArticleView, DeleteArticleView, ShowProfileArticlesView
 
 urlpatterns = [
     path('', ShowArticlesView.as_view(), name='homepage'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('artikelaanmaken/', CreateArticleView.as_view(), name='artikelaanmaken'),
     path('artikel/bewerken/<int:pk>', UpdateArticleView.as_view(), name="artikelbewerken"),
     path('artikel/verwijder/<int:pk>', DeleteArticleView.as_view(), name="artikelverwijderen"),
+    path('profiel/<int:author_id>/artikels', ShowProfileArticlesView.as_view(), name="profielartikels"),
 ]

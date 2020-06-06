@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Artikels | DjangoBlog{% endblock %}
+{% block title %}Artikels van {{ article.author|title }} | DjangoBlog{% endblock %}
 
 {% block content %}
     <div class="pt-3 pb-3">
+        <h2>Alle artikels van {{ object_list.0.author|title }}</h2>
         <div class="mt-2"></div>
         {% for article in object_list %}
             <div class="blog-post gray-border-bottom">
@@ -13,7 +14,7 @@
             </div>
         {% empty %}
             <div class="pt-3 pb-3">
-                Nog geen artikels geschreven.
+                {{ article.author|title }} heeft nog niks geschreven.
             </div>
         {% endfor %}
     </div>
