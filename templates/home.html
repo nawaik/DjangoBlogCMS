@@ -4,13 +4,18 @@
 
 {% block content %}
     <div class="pt-3 pb-3">
-        <h2>Artikels</h2>
-        <ul>
-            {% for article in object_list %}
-                <li>{{ article.pub_date|date }} - {{ article.title }}</li>
-            {% empty %}
-                <li>No articles yet.</li>
-            {% endfor %}
-        </ul>
+        <div class="mt-2"></div>
+        {% for article in object_list %}
+            {% comment %} <li>{{ article.pub_date|date }} - {{ article.title }}</li> {% endcomment %}
+            <div class="blog-post">
+                <a href="{% url 'artikeldetail' article.pk %}"><h3>{{ article.title|title }}</h3></a>
+                <p class="text-muted">Gepost op {{ article.pub_date }} door {{ article.author }}</p>
+                <p>{{ article.text|truncatechars_html:100 }}</p>
+            </div>
+        {% empty %}
+            <div class="pt-3 pb-3">
+                Nog geen artikels geschreven.
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

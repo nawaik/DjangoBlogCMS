@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 from users.models import CustomUser
 
@@ -12,3 +13,7 @@ class Articles(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("artikeldetail", kwargs={"pk": self.pk})
+    

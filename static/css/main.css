@@ -7,6 +7,12 @@ body{
     height: 100%;
 }
 
+.blog-post{
+    margin: 0 0 35px 0;
+    padding: 10px 0 35px;
+    border-bottom: 1px solid #dfdfdf;
+}
+
 footer{
     background-color: #f5f5f5;
     line-height: 3;
