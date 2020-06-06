@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import MakeCustomUserForm, CustomAuthenticationForm, ProfileForm
 from .models import CustomUser
@@ -16,7 +17,7 @@ class CustomLoginView(LoginView):
     form_class = CustomAuthenticationForm
     template_name = 'registration/login.html'
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     success_url = '/profiel/'
     template_name = 'gebruiker/profielupdaten.html'

@@ -7,7 +7,7 @@
 {% block content %}
 <div class="pt-3 pb-3">
     <h3>{{ object.title|title }}</h3>
-    <p class="pt-2 text-muted">Geschreven op {{ object.pub_date }} door <a href="{% url 'profiel' object.author_id %}">{{ object.author }}</a> - 14 comments</p>
+    <p class="pt-2 text-muted">Geschreven op {{ object.pub_date }} door <a href="{% url 'profiel' object.author_id %}">{{ object.author }}</a></p>
     <p class="pt-2">{{ object.text }}</p>
 </div>
 {% endblock %}
