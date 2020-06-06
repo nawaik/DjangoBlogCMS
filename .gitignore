@@ -5,6 +5,7 @@
 */*/*/__pycache__/
 */*/__pycache__/
 */__pycache__/
+*.sqlite3
 
 # Visual Studio Code #
 .vscode/
