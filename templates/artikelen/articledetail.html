@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ object.title}} | DjangoBlog {% endblock %}
+{% block title %}{{ object.meta_title }} | DjangoBlog {% endblock %}
+
+{% block head %}<meta name='description' content='{{ object.meta_description }}'/>{% endblock %}
 
 {% block content %}
 <div class="pt-3 pb-3">
-    <div class="mt-2"></div>
     <h3>{{ object.title|title }}</h3>
     <p class="pt-2 text-muted">Geschreven op {{ object.pub_date }} door {{ object.author }} - 14 comments</p>
     <p class="pt-2">{{ object.text }}</p>

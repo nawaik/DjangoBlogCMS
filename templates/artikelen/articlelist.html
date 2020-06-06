@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Artikels | DjangoBlog{% endblock %}
+
+{% block content %}
+    <div class="pt-3 pb-3">
+        <div class="row pt-3 pb-3 gray-border-bottom mr-0 ml-0">
+            <h2>Alle artikels van {{ object_list.0.author }}</h2>
+            <div class="ml-auto justify-content-center align-self-center">
+                <a href="{% url 'artikelaanmaken' %}">Artikel aanmaken</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Titel</th>
+                    <th scope="col" class="text-center">Gepost op</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for article in object_list %}
+                <tr>
+                    <td>{{ article.title|title }}</td>
+                    <td class="text-center">{{ article.pub_date }}</td>
+                    <td class="text-right" style="width:30%;">
+                        <div class="row mr-0 ml-0">
+                            <div class="ml-auto mr-3"><a href="{% url 'artikelbewerken' article.pk %}">EDIT</a></div>
+                            <div><a href="{% url 'artikelverwijderen' article.pk %}">DELETE</a></div>
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>Nog geen artikels geschreven.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

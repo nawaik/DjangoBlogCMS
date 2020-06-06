@@ -6,6 +6,7 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
+        {% block head %}{% endblock %}
     </head>
     <body>
         <header>
@@ -22,7 +23,7 @@
                                     <a class="nav-link" href="{% url 'profile' %}">Profiel</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'artikelaanmaken' %}">Artikel aanmaken</a>
+                                    <a class="nav-link" href="{% url 'artikels' %}">Jouw Artikels</a>
                                 </li>
                             </ul>
                             <a class="p-2 text-dark" href="{% url 'logout' %}">Logout</a>

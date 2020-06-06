@@ -6,8 +6,7 @@
     <div class="pt-3 pb-3">
         <div class="mt-2"></div>
         {% for article in object_list %}
-            {% comment %} <li>{{ article.pub_date|date }} - {{ article.title }}</li> {% endcomment %}
-            <div class="blog-post">
+            <div class="blog-post gray-border-bottom">
                 <a href="{% url 'artikeldetail' article.pk %}"><h3>{{ article.title|title }}</h3></a>
                 <p class="text-muted">Gepost op {{ article.pub_date }} door {{ article.author }}</p>
                 <p>{{ article.text|truncatechars_html:100 }}</p>
