@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Artikels | DjangoBlog{% endblock %}
+
+{% block content %}
+    <div class="pt-3 pb-3">
+        <div class="pt-3 pb-3 gray-border-bottom mr-0 ml-0">
+            <h2>Alle reacties op artikels van {{ object_list.0.author }}</h2>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Gepost op</th>
+                    <th scope="col" class="text-center">Comment</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                {% for comment in object.comments.all %}
+                    <tr>
+                        <td>{{ comment.pk }}</td>
+                        <td>{{ comment.author|title }}</td>
+                        <td>{{ comment.post_date }}</td>
+                        <td class="text-center">{{ comment.comment|truncatechars:30 }}</td>
+                        <td class="text-right" style="width:30%;">
+                            <div class="row mr-0 ml-0">
+                                <div class="ml-auto mr-3"><a href="{% url 'commentbewerken' comment.pk %}">EDIT</a></div>
+                                <div><a href="{% url 'commentverwijderen' comment.pk %}">DELETE</a></div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% empty %}
+                <tr>
+                    <td>U heeft nog geen reacties gehad.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Comment Verwijderen{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    <div class="pt-3 pb-3">
+        {% csrf_token %}
+        <p>Wilt u deze comment verwijderen?</p>
+        <input type="submit" value="Comment Verwijderen" class="btn btn-danger">
+    </div>
+</form>
+{% endblock %}

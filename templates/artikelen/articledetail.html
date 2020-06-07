@@ -22,9 +22,9 @@
         <p>{{ comment.comment|linebreaks }}</p>
     </div>
 {% empty %}
-    <p>Nog geen reacties geplaatst.</p>
+    <p class="gray-border-bottom pb-3 mb-2">Nog geen reacties geplaatst.</p>
 {% endfor %}
-<form method="post" class="pt-2 pb-4">
+<form method="post" action="{% url 'commentaanmaken' object.pk  %}" class="pt-2 pb-4">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Reactie plaatsen" class="btn btn-primary">

@@ -6,7 +6,7 @@ from django.views.generic import DetailView
 from django.urls import reverse_lazy
 
 from .forms import CreateArticleForm, CreateCommentsForm
-from .models import Articles
+from .models import Articles, Comments
 
 class ShowArticlesView(ListView):
     model = Articles
@@ -37,6 +37,14 @@ class ShowProfileArticlesView(ListView):
 
     def get_queryset(self):
         return Articles.objects.filter(author_id=self.kwargs['author_id'])
+
+class ShowArticleCommentsView(LoginRequiredMixin, ListView):
+    model = Articles
+    paginate_by = 40
+    template_name = 'artikelen/commentlist.html'
+
+    def get_queryset(self):
+        return Articles.objects.filter(author=self.request.user)
 
 class CreateArticleView(LoginRequiredMixin, CreateView):
     form_class = CreateArticleForm
@@ -71,3 +79,26 @@ class DeleteArticleView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return obj.author == obj.author
         else:
             return obj.author == self.request.user
+
+class CreateCommentView(CreateView):
+    model = Comments
+    fields = ['author', 'email', 'comment']
+
+    def get_success_url(self):
+        return reverse_lazy('artikeldetail', kwargs = {'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        commentobject = Articles.objects.get(pk=self.kwargs['pk'])
+        form.instance.article = commentobject
+        return super().form_valid(form)
+
+class UpdateCommentView(LoginRequiredMixin, UpdateView):
+    model = Comments
+    fields = ['author', 'email', 'comment']
+    success_url = reverse_lazy('comments')
+    template_name = 'artikelen/updatecomment.html'
+
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comments
+    success_url = reverse_lazy('comments')
+    template_name = 'artikelen/deletecomment.html'
