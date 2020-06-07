@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.urls import reverse_lazy
 
-from .forms import CreateArticleForm
+from .forms import CreateArticleForm, CreateCommentsForm
 from .models import Articles
 
 class ShowArticlesView(ListView):
@@ -16,6 +16,11 @@ class ShowArticlesView(ListView):
 class DetailArticleView(DetailView):
     model = Articles
     template_name = 'artikelen/articledetail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CreateCommentsForm
+        return context
 
 class ShowOwnArticlesView(LoginRequiredMixin, ListView):
     model = Articles

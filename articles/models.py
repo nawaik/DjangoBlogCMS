@@ -16,4 +16,15 @@ class Articles(models.Model):
 
     def get_absolute_url(self):
         return reverse("artikeldetail", kwargs={"pk": self.pk})
+
+class Comments(models.Model):
+    article = models.ForeignKey(Articles, on_delete=models.CASCADE, related_name="comments")
+    author = models.CharField(blank=False, max_length=50)
+    post_date = models.DateTimeField(auto_now=True)
+    email = models.EmailField(blank=False)
+    comment = models.TextField(blank=False, max_length=500)
+
+    def __str__(self):
+        return self.comment 
+    
     

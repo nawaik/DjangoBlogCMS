@@ -1,13 +1,32 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}{{ object.meta_title }} | DjangoBlog {% endblock %}
 
 {% block head %}<meta name='description' content='{{ object.meta_description }}'/>{% endblock %}
 
 {% block content %}
-<div class="pt-3 pb-3">
+<div class="pt-3">
     <h3>{{ object.title|title }}</h3>
-    <p class="pt-2 text-muted">Geschreven op {{ object.pub_date }} door <a href="{% url 'profiel' object.author_id %}">{{ object.author }}</a></p>
-    <p class="pt-2">{{ object.text }}</p>
+    <p class="pt-2 text-muted">Geschreven op {{ object.pub_date }} door <a href="{% url 'profiel' object.author_id %}">{{ object.author }}</a> - {{ object.comments.count }} comments</p>
+    <p class="pt-1">{{ object.text }}</p>
 </div>
+<hr>
+<h4>Reacties</h4>
+<hr>
+{% for comment in object.comments.all %}
+    <div class="gray-border-bottom pt-2">
+        <div>{{ comment.post_date }}</div>
+        <strong>{{ comment.author }}</strong>
+        <p>{{ comment.comment|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>Nog geen reacties geplaatst.</p>
+{% endfor %}
+<form method="post" class="pt-2 pb-4">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Reactie plaatsen" class="btn btn-primary">
+</form>
 {% endblock %}
