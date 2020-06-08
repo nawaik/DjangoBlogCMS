@@ -10,7 +10,6 @@ from .models import Articles, Comments
 
 class ShowArticlesView(ListView):
     model = Articles
-    paginate_by = 40
     template_name = 'home.html'
 
 class DetailArticleView(DetailView):
@@ -24,7 +23,6 @@ class DetailArticleView(DetailView):
 
 class ShowOwnArticlesView(LoginRequiredMixin, ListView):
     model = Articles
-    paginate_by = 40
     template_name = 'artikelen/articlelist.html'
 
     def get_queryset(self):
@@ -32,7 +30,6 @@ class ShowOwnArticlesView(LoginRequiredMixin, ListView):
 
 class ShowProfileArticlesView(ListView):
     model = Articles
-    paginate_by = 40
     template_name = 'artikelen/userarticle.html'
 
     def get_queryset(self):
@@ -40,7 +37,6 @@ class ShowProfileArticlesView(ListView):
 
 class ShowArticleCommentsView(LoginRequiredMixin, ListView):
     model = Articles
-    paginate_by = 40
     template_name = 'artikelen/commentlist.html'
 
     def get_queryset(self):
