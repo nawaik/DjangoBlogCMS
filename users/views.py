@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
@@ -19,7 +19,7 @@ class CustomLoginView(LoginView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
-    success_url = '/profiel/'
+    success_url = reverse_lazy('profielbewerken')
     template_name = 'gebruiker/profielupdaten.html'
 
     def get_queryset(self):
